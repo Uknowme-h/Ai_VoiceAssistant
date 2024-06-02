@@ -3,6 +3,11 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import { mirage } from "ldrs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPlay } from "@fortawesome/free-solid-svg-icons/faPlay";
+import { faPause } from "@fortawesome/free-solid-svg-icons/faPause";
 const genAI = new GoogleGenerativeAI("AIzaSyDDm8eRTp0t3uO8F-GuSE_wIFhQZS_1CAQ");
 
 function App() {
@@ -103,13 +108,13 @@ function App() {
     <>
       <Navbar />
 
-      <h1 className="text-[30px] mt-[20px] m-[20px] font-bold block">
+      <h1 className="text-[30px] mt-[20px] m-[20px] font-bold text-[white] block">
         AI Voice Assistant ChatBot
       </h1>
-      <div className="h-[300px] w-[full] bg-primary ml-[20px] mt-[60px]">
-        <pre className="h-full w-full overflow-y-scroll text-white text-[30px] text-left p-[20px]">
+      <div className="h-[300px] w-[full] bg-[#00224D] ml-[20px] mt-[60px]">
+        <h1 className="h-full w-full overflow-y-scroll text-white text-[30px] text-left p-[20px]">
           {answer}
-        </pre>
+        </h1>
 
         <div className={`absolute top-[40%] right-[43%] text-white ${loader}`}>
           {mirage.register()}
@@ -139,17 +144,19 @@ function App() {
             }
           }}
         >
+          <FontAwesomeIcon icon={isPlaying ? faPlay : faPause} /> &nbsp;
           {isPlaying ? "Pause" : "Play"}{" "}
         </button>
         <button
           className=" float-right ml-[20px] mr-[20px]"
           onClick={generateresponse}
         >
-          Send
+          <FontAwesomeIcon icon={faPaperPlane} />
+          &nbsp; Send
         </button>
 
         <button className="block-inline float-right" onClick={startListening}>
-          Start Listening
+          <FontAwesomeIcon icon={faMicrophone} /> &nbsp; Speak
         </button>
       </div>
     </>
