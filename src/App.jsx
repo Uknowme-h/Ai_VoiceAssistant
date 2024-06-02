@@ -12,7 +12,7 @@ const genAI = new GoogleGenerativeAI("AIzaSyDDm8eRTp0t3uO8F-GuSE_wIFhQZS_1CAQ");
 
 function App() {
   const [prompt, setprompt] = useState("");
-  const [answer, setanswer] = useState("");
+  const [answer, setanswer] = useState("what can I help you with today?");
   const [loader, setloader] = useState("hidden");
   const [isspeaking, setspeaking] = useState(true);
   const [audio, setAudio] = useState(null); // Add this line
@@ -37,8 +37,7 @@ function App() {
     const response = await result.response;
     const text = response.text();
 
-    const processedResponse = text.replace(/<[^>]*>/g, "");
-    processedResponse.replace(/./g, ",");
+    const processedResponse = text.replace(/<[^>]*>/g, " ").replace(/\./g, ",");
 
     // Update chatHistory with the new message and response
     setChatHistory([
@@ -109,12 +108,20 @@ function App() {
       <Navbar />
 
       <h1 className="text-[30px] mt-[20px] m-[20px] font-bold text-[white] block">
-        AI Voice Assistant ChatBot
+        Your Friendly Neighbourhood AI Assistant
       </h1>
       <div className="h-[300px] w-[full] bg-[#00224D] ml-[20px] mt-[60px]">
-        <h1 className="h-full w-full overflow-y-scroll text-white text-[30px] text-left p-[20px]">
+        <pre className="h-full w-full overflow-y-scroll text-white text-[30px] text-left p-[20px] mt-[50px] flex">
+          <div className=" h-[50px] w-[50px]  flex">
+            <img
+              src="https://static01.nyt.com/images/2021/04/30/multimedia/30xp-meme/29xp-meme-mediumSquareAt3X-v5.jpg"
+              alt="user"
+              className="rounded-full text-white"
+            />
+          </div>
+          &nbsp; &nbsp;
           {answer}
-        </h1>
+        </pre>
 
         <div className={`absolute top-[40%] right-[43%] text-white ${loader}`}>
           {mirage.register()}
@@ -124,8 +131,9 @@ function App() {
 
       <div className="m-[20px]">
         <input
-          className="m-[5px] mb-[20px] p-[10px] w-[99%] border-2 border-primary "
+          className="m-[5px] mb-[20px] p-[10px] w-[99%] border-2 border-primary bg-[#00224D] text-white rounded-md"
           value={prompt}
+          placeholder="Type your message here..."
           onChange={(e) => setprompt(e.target.value)}
           type="text"
         />
