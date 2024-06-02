@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.12.0",
     "@gradio/client": "^0.20.0",
     "expo-speech": "^12.0.2",
     "ldrs": "^1.0.2",

@@ -2,46 +2,59 @@ import { useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import { mirage } from "ldrs";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+const genAI = new GoogleGenerativeAI("AIzaSyDDm8eRTp0t3uO8F-GuSE_wIFhQZS_1CAQ");
 
 function App() {
   const [prompt, setprompt] = useState("");
   const [answer, setanswer] = useState("");
   const [loader, setloader] = useState("hidden");
   const [isspeaking, setspeaking] = useState(true);
+  const [audio, setAudio] = useState(null); // Add this line
+  const [isPlaying, setisPlaying] = useState(false);
+
+  const [chatHistory, setChatHistory] = useState([]); // Add this line
+
   async function generateresponse() {
-    setprompt("");
     setanswer("");
     setloader("visible");
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDDm8eRTp0t3uO8F-GuSE_wIFhQZS_1CAQ",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-        }),
-      }
-    );
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const chat = model.startChat({
+      history: chatHistory, // Use chatHistory here
+      generationConfig: {
+        maxOutputTokens: 100,
+      },
+    });
 
-    const data = await response.json();
+    const msg = prompt;
 
-    const geminiresponse = data["candidates"][0]["content"]["parts"][0]["text"];
+    const result = await chat.sendMessage(msg);
+    const response = await result.response;
+    const text = response.text();
 
-    const processedResponse = geminiresponse.replace(/<[^>]*>/g, "");
+    const processedResponse = text.replace(/<[^>]*>/g, "");
     processedResponse.replace(/./g, ",");
+
+    // Update chatHistory with the new message and response
+    setChatHistory([
+      ...chatHistory,
+      { role: "user", parts: [{ text: msg }] },
+      { role: "model", parts: [{ text }] },
+    ]);
 
     query({ inputs: processedResponse })
       .then((audio) => {
         setloader("hidden");
+        setAudio(audio);
         if (isspeaking) {
           audio.play();
+          setisPlaying(true);
         } else {
           audio.pause();
+          setisPlaying(false);
         }
 
-        setanswer(geminiresponse);
+        setanswer(text);
       })
       .catch((error) => {
         console.error("Error playing audio", error);
@@ -62,11 +75,11 @@ function App() {
     };
   }
 
-  function speakResponse(word) {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(word);
-    synth.speak(utterance);
-  }
+  // function speakResponse(word) {
+  //   const synth = window.speechSynthesis;
+  //   const utterance = new SpeechSynthesisUtterance(word);
+  //   synth.speak(utterance);
+  // }
 
   // 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
   async function query(data) {
@@ -114,9 +127,19 @@ function App() {
         <br></br>
         <button
           className="block-inline float-right"
-          onClick={() => setspeaking(false)}
+          onClick={() => {
+            setspeaking(!isspeaking);
+            if (audio) {
+              if (isPlaying) {
+                audio.pause();
+              } else {
+                audio.play();
+              }
+              setisPlaying(!isPlaying);
+            }
+          }}
         >
-          Pause
+          {isPlaying ? "Pause" : "Play"}{" "}
         </button>
         <button
           className=" float-right ml-[20px] mr-[20px]"
