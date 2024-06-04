@@ -79,13 +79,6 @@ function App() {
     };
   }
 
-  // function speakResponse(word) {
-  //   const synth = window.speechSynthesis;
-  //   const utterance = new SpeechSynthesisUtterance(word);
-  //   synth.speak(utterance);
-  // }
-
-  // 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
   async function query(data) {
     const response = await fetch(
       "https://api-inference.huggingface.co/models/facebook/fastspeech2-en-ljspeech",
