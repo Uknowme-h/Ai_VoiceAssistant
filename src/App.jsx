@@ -125,9 +125,13 @@ function App() {
         <input
           className="m-[5px] mb-[20px] p-[10px] w-[99%] border-2 border-primary bg-[#00224D] text-white rounded-md"
           value={prompt}
-          id="prompt"
           placeholder="Type your message here..."
           onChange={(e) => setprompt(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              generateresponse();
+            }
+          }}
           type="text"
         />
         <br></br>
