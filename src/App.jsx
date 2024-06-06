@@ -25,7 +25,7 @@ function App() {
     setloader("visible");
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const chat = model.startChat({
-      history: chatHistory, // Use chatHistory here
+      history: chatHistory,
       generationConfig: {
         maxOutputTokens: 100,
       },
@@ -39,7 +39,6 @@ function App() {
 
     const processedResponse = text.replace(/<[^>]*>/g, " ").replace(/\./g, ",");
 
-    // Update chatHistory with the new message and response
     setChatHistory([
       ...chatHistory,
       { role: "user", parts: [{ text: msg }] },
@@ -100,7 +99,7 @@ function App() {
     <>
       <Navbar />
 
-      <h1 className="text-[30px] mt-[20px] m-[20px] font-bold text-[white] block">
+      <h1 className="text-[30px] mt-[20px] m-[20px] font-bold text-[white] block ">
         Your Friendly Neighbourhood AI Assistant
       </h1>
       <div className="h-[300px] w-[full] bg-[#00224D] ml-[20px] mt-[60px]">
@@ -126,6 +125,7 @@ function App() {
         <input
           className="m-[5px] mb-[20px] p-[10px] w-[99%] border-2 border-primary bg-[#00224D] text-white rounded-md"
           value={prompt}
+          id="prompt"
           placeholder="Type your message here..."
           onChange={(e) => setprompt(e.target.value)}
           type="text"
@@ -146,7 +146,7 @@ function App() {
           }}
         >
           <FontAwesomeIcon icon={isPlaying ? faPlay : faPause} /> &nbsp;
-          {isPlaying ? "Pause" : "Play"}{" "}
+          {isPlaying ? "Pause" : "Play"}
         </button>
         <button
           className=" float-right ml-[20px] mr-[20px]"
