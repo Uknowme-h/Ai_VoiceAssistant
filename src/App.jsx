@@ -102,15 +102,15 @@ function App() {
       <h1 className="text-[30px] mt-[20px] m-[20px] font-bold text-[white] block ">
         Your Friendly Neighbourhood AI Assistant
       </h1>
-      <div className="h-[300px] w-[full] bg-[#00224D] ml-[20px] mt-[60px]">
-        <pre className="h-full w-full overflow-y-scroll text-white text-[30px] text-left p-[20px] mt-[50px] flex">
-          <div className=" h-[50px] w-[50px]  flex">
-            <img
-              src="https://static01.nyt.com/images/2021/04/30/multimedia/30xp-meme/29xp-meme-mediumSquareAt3X-v5.jpg"
-              alt="user"
-              className="rounded-full text-white"
-            />
-          </div>
+      <div className="h-[300px] w-[full] bg-[#00224D] ml-[20px] mt-[60px] flex items-center">
+        <div className="h-[50px] w-[50px]">
+          <img
+            src="https://static01.nyt.com/images/2021/04/30/multimedia/30xp-meme/29xp-meme-mediumSquareAt3X-v5.jpg"
+            alt="user"
+            className="rounded-full text-white"
+          />
+        </div>
+        <pre className="overflow-y-scroll text-white text-[30px] text-left p-[20px] flex-grow">
           &nbsp; &nbsp;
           {answer}
         </pre>
