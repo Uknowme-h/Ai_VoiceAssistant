@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import { mirage } from "ldrs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
+import { faDeleteLeft, faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { faPlay } from "@fortawesome/free-solid-svg-icons/faPlay";
 import { faPause } from "@fortawesome/free-solid-svg-icons/faPause";
@@ -102,8 +102,8 @@ function App() {
       <h1 className="text-[30px] mt-[20px] m-[20px] font-bold text-[white] block ">
         Your Friendly Neighbourhood AI Assistant
       </h1>
-      <div className="h-[300px] w-[full] bg-[#00224D] ml-[20px] mt-[60px] flex items-center">
-        <div className="h-[50px] w-[50px]">
+      <div className="h-[300px] w-[full] bg-[#00224D] ml-[20px] mt-[60px] flex ">
+        <div className="h-[50px] w-[50px] mt-[15px] ml-[10px] mr-[-40px]">
           <img
             src="https://static01.nyt.com/images/2021/04/30/multimedia/30xp-meme/29xp-meme-mediumSquareAt3X-v5.jpg"
             alt="user"
@@ -135,6 +135,14 @@ function App() {
           type="text"
         />
         <br></br>
+        <button
+          onClick={() => {
+            setanswer("");
+          }}
+        >
+          &nbsp; clear&nbsp;&nbsp;
+          <FontAwesomeIcon icon={faDeleteLeft} />
+        </button>
         <button
           className="block-inline float-right"
           onClick={() => {
