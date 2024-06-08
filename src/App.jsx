@@ -136,6 +136,7 @@ function App() {
         />
         <br></br>
         <button
+          className="block-inline float-right ml-[20px]"
           onClick={() => {
             setanswer("");
           }}
