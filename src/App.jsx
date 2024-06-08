@@ -141,8 +141,8 @@ function App() {
             setanswer("");
           }}
         >
-          &nbsp; clear&nbsp;&nbsp;
           <FontAwesomeIcon icon={faDeleteLeft} />
+          &nbsp; clear&nbsp;&nbsp;
         </button>
         <button
           className="block-inline float-right"
