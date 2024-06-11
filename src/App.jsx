@@ -81,7 +81,7 @@ function App() {
 
       const transcript = event.results[current][0].transcript;
       setprompt(transcript);
-      if (commands.includes(transcript.toLowerCase())) {
+      if (transcript.startsWith("open")) {
         openInNewTab(`https://www.${transcript.split(" ")[1]}.com`);
       }
     };
