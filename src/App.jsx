@@ -11,6 +11,12 @@ import { faPause } from "@fortawesome/free-solid-svg-icons/faPause";
 const genAI = new GoogleGenerativeAI("AIzaSyDDm8eRTp0t3uO8F-GuSE_wIFhQZS_1CAQ");
 
 function App() {
+  const commands = [
+    "open youtube",
+    "open instagram",
+    "open github",
+    "open linkedin",
+  ];
   const [prompt, setprompt] = useState("");
   const [answer, setanswer] = useState("what can I help you with today?");
   const [loader, setloader] = useState("hidden");
@@ -75,6 +81,9 @@ function App() {
 
       const transcript = event.results[current][0].transcript;
       setprompt(transcript);
+      if (commands.includes(transcript.toLowerCase())) {
+        openInNewTab(`https://www.${transcript.split(" ")[1]}.com`);
+      }
     };
   }
 
@@ -93,6 +102,9 @@ function App() {
     const audioUrl = URL.createObjectURL(result);
     const audio = new Audio(audioUrl);
     return audio;
+  }
+  function openInNewTab(url) {
+    window.open(url, "_blank");
   }
 
   return (
@@ -163,7 +175,13 @@ function App() {
         </button>
         <button
           className=" float-right ml-[20px] mr-[20px]"
-          onClick={generateresponse}
+          onClick={() => {
+            if (commands.includes(prompt.toLowerCase())) {
+              openInNewTab(`https://www.${prompt.split(" ")[1]}.com`);
+            } else {
+              generateresponse();
+            }
+          }}
         >
           <FontAwesomeIcon icon={faPaperPlane} />
           &nbsp; Send
