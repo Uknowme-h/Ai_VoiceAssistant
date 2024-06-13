@@ -115,11 +115,11 @@ function App() {
         Your Friendly Neighbourhood AI Assistant
       </h1>
       <div className="h-[300px] w-[full] bg-[#00224D] ml-[20px] mt-[60px] flex ">
-        <div className="h-[50px] w-[50px] mt-[15px] ml-[10px] mr-[-40px]">
+        <div className="h-[50px] w-[50px] mt-[15px] ml-[10px] mr-[-40px] absolute">
           <img
             src="https://static01.nyt.com/images/2021/04/30/multimedia/30xp-meme/29xp-meme-mediumSquareAt3X-v5.jpg"
             alt="user"
-            className="rounded-full text-white"
+            className="rounded-full text-white "
           />
         </div>
         <pre className="overflow-y-scroll text-white text-[30px] text-left p-[20px] flex-grow">
