@@ -112,7 +112,7 @@ function App() {
       <Navbar />
 
       <h1 className="text-[30px] mt-[20px] m-[20px] font-bold text-[white] block ">
-        Your Friendly Neighbourhood AI Assistant
+        AI Assistant
       </h1>
       <div className="h-[300px] w-[full] bg-[#00224D] ml-[20px] mt-[60px] flex ">
         <div className="h-full w-[50px] mt-[15px] ml-[10px] mr-[-40px] flex-shrink-0">
