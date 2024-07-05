@@ -8,7 +8,7 @@ import { faDeleteLeft, faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { faPlay } from "@fortawesome/free-solid-svg-icons/faPlay";
 import { faPause } from "@fortawesome/free-solid-svg-icons/faPause";
-const genAI = new GoogleGenerativeAI("AIzaSyDDm8eRTp0t3uO8F-GuSE_wIFhQZS_1CAQ");
+const genAI = new GoogleGenerativeAI("AIzaSyAQdZxg3JeG9MVD23lRkP4Hpm2vCuLDDoM");
 
 function App() {
   const commands = [
@@ -39,7 +39,13 @@ function App() {
 
     const msg = prompt;
 
-    const result = await chat.sendMessage(msg);
+    const result = await chat.sendMessage(msg).catch((error) => {
+      setloader("hidden");
+      setanswer(
+        "Sorry, I am not able to process your request at the moment.(quota exceeded)!"
+      );
+      console.error("Error sending message");
+    });
     const response = await result.response;
     const text = response.text();
 
