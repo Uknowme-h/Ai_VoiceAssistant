@@ -44,7 +44,7 @@ function App() {
       setanswer(
         "Sorry, I am not able to process your request at the moment.(quota exceeded)!"
       );
-      console.error("Error sending message");
+      console.error("Error sending message. (Quota exceeded)");
     });
     const response = await result.response;
     const text = response.text();
