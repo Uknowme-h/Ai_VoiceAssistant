@@ -41,9 +41,28 @@ function App() {
 
     const result = await chat.sendMessage(msg).catch((error) => {
       setloader("hidden");
-      setanswer(
-        "Sorry, I am not able to process your request at the moment.(quota exceeded)!"
-      );
+
+      query({
+        inputs:
+          "Sorry, I am not able to process , your , request at the moment , Gemini , quota has been , exceeded ",
+      })
+        .then((audio) => {
+          setloader("hidden");
+          setAudio(audio);
+          if (isspeaking) {
+            audio.play();
+            setisPlaying(true);
+          } else {
+            audio.pause();
+            setisPlaying(false);
+          }
+          setanswer(
+            "Sorry, I am not able to process your request at the moment.(Gemini quota has been exceeded)!"
+          );
+        })
+        .catch((error) => {
+          console.error("Error playing audio", error);
+        });
       console.error("Error sending message. (Quota exceeded)");
     });
     const response = await result.response;
